@@ -15,7 +15,8 @@ monthly_challenges = {
     "september": "This is the challenge for September. The challenge is to create a Django model form and run it on the server. Let us see if you can do it. Good luck!",
     "october": "This is the challenge for October. The challenge is to create a Django model form and run it on the server. Let us see if you can do it. Good luck!",
     "november": "This is the challenge for November. The challenge is to create a Django model form and run it on the server. Let us see if you can do it. Good luck!",
-    "december": "This is the challenge for December. The challenge is to create a Django model form and run it on the server. Let us see if you can do it. Good luck!",
+    # "december": "This is the challenge for December. The challenge is to create a Django model form and run it on the server. Let us see if you can do it. Good luck!",
+    "december": None
 }
 
 # Create your views here.
@@ -24,12 +25,9 @@ def index(request):
     list_items = ""
     months = list(monthly_challenges.keys())
     
-    for month in months:
-        month_path = reverse("monthly_challenge", args=[month])
-        list_items += f"<li><a href=\"{month_path}\">{month.capitalize()}</a></li>"
-    
-    response_date = f"<ul>{list_items}</ul>"
-    return HttpResponse(response_date)
+    return render(request, 'challenges/index.html', {
+        "months": months
+    })
 
 def monthly_challenge_by_number(request, month):
     months = list(monthly_challenges.keys())
@@ -44,7 +42,10 @@ def monthly_challenge(request, month):
     
     try:
         challenge_text = monthly_challenges[month]
-        response_date = f"<h1>{challenge_text}</h1>"
-        return HttpResponse(response_date)
+        return render(request, "challenges/challenge.html", {
+            "text": challenge_text,
+            "month": month
+        })
+
     except:
         return HttpResponseNotFound("<h1>This month is not supported!</h1>")
