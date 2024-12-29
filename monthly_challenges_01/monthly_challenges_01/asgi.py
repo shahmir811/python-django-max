@@ -1,5 +1,5 @@
 """
-ASGI config for mypage_01 project.
+ASGI config for monthly_challenges_01 project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mypage_01.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'monthly_challenges_01.settings')
 
 application = get_asgi_application()

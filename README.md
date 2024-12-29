@@ -1,4 +1,4 @@
-# python-django-max
+# Python Django Max Projects
 
 ## Common commands
 
@@ -24,7 +24,6 @@ Following command is used to start a development server locally:
 
 ```
 python3 manage.py runserver
-
 ```
 
 ### 4 - Create a django app (module)
@@ -33,5 +32,4 @@ Following command is used to create a django app (module):
 
 ```
 python3 manage.py startapp app_name
-
 ```
