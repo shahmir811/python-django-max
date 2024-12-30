@@ -10,10 +10,10 @@ class Book(models.Model): # table name will be books in the database
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)]) # rating should be between 1 and 5  
     author = models.CharField(null=True, max_length=100)
     is_bestselling = models.BooleanField(default=False) # default value is False
-    slug = models.SlugField(default="", null=False, unique=True)
+    slug = models.SlugField(default="", null=False, unique=True, db_index=True)
 
     def get_absolute_url(self):
-        return reverse("book_detail", kwargs={"book_id": self.id})
+        return reverse("book_detail", kwargs={"slug": self.slug})
     
 
     def save(self, *args, **kwargs):
