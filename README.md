@@ -33,3 +33,27 @@ Following command is used to create a django app (module):
 ```
 python3 manage.py startapp app_name
 ```
+
+### 5 - Making a migration
+
+Following command is used to create a migration in the django project:
+
+```
+python3 manage.py makemigrations
+```
+
+### 6 - Running the migrations
+
+Following command is used to run the migrations in the django project:
+
+```
+python3 manage.py migrate
+```
+
+### 7 - Opening the python shell
+
+Following command is used to to open the python shell within the django project:
+
+```
+python3 manage.py shell
+```
