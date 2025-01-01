@@ -1,5 +1,16 @@
 # Book Store
 
+Learned about:
+
+- Database models
+- `get_absolute_url` method in the models
+- slug fields, and storing it at the time of creation
+- Adding secondary index in the slug field
+- Aggregations sql methods like count, average, order by etc
+- How to use django admin panel
+- How to create super user for admin
+- How to show models in the admin panel
+
 Learned the following different topics focusing on CRUD operations on the database:
 
 #### Opening the python shell
@@ -97,4 +108,90 @@ Book.objects.filter(Q(rating__lte=3) | Q(is_bestselling=True), Q(author__icontai
 # if you use the AND query without the Q keyword, then it must be placed at the end,
 # not at the start, else it will throw an error
 Book.objects.filter(Q(rating__lte=3) | Q(is_bestselling=True), author__icontains=“rowling”)
+```
+
+#### one-to-many relationship:
+
+Inserting records to the DB using one-to-many relationships:
+
+```
+from book_outlet.models import Book, Author
+
+jk_rowling = Author(first_name="J.K.", last_name="Rowling")
+jk_rowling.save()
+
+hp1 = Book(title="Harry Potter 1 - The Philosopher's Stone", rating=5, is_bestselling=True, author=jk_rowling)
+hp1.save()
+```
+
+To query relationship data, we can use the following queries:
+
+```
+from book_outlet.models import Book, Author
+
+harry_potter = Book.objects.get(title__icontains="harry")
+harry_potter.author.first_name
+harry_potter.author.last_name
+```
+
+#### Cross model queries:
+
+1. Get all the books written by an author whose last_name is “Rowling”
+
+```
+from book_outlet.models import Book, Author
+
+rowling_books = Book.objects.filter(author__last_name="Rowling")
+rowling_books = Book.objects.filter(author__last_name__icontains=“rowling") # icontains is a modifier
+```
+
+2. Get all the books written by rowling:
+
+```
+jkr = Author.objects.get(first_name=“J.K.”)
+jkr.books.all() # books is the related_model name written in the Books class in models.py
+jkr.books.get(title__icontains=“philosopher”) # Returns single record
+jkr.books.filter(ratings__gte=4) # Returns an array of records
+```
+
+#### One-to-one relationship:
+
+Inserting records to the DB using one-to-one relationships:
+
+```
+from book_outlet.models import Book, Author, Address
+
+address1 = Address(street="Street # 07", postal_code="54000", city="Lahore")
+address1.save()
+
+address2 = Address(street="101 Bunting Lane", postal_code="65343", city="Miami")
+address2.save()
+
+jkr1 = Author.objects.get(first_name="J.K.")
+jkr1.address = address1
+jkr1.save()
+
+jkr1.address.street # returns ‘Street # 07’
+
+jkr_address = Address.objects.all()[0].author
+jkr_address # Returns <Author: J.K. Rowling>
+jkr_address.first_name # Returns J.K.
+```
+
+#### many-to-many relationship:
+
+Inserting records to the DB using many-to-many relationships:
+
+```
+from book_outlet.models import Book, Author, Address, Country
+
+hp = Book.objects.get(title__icontains="philosopher")
+
+germany = Country(name="Germany", code="DE")
+germany.save()
+
+hp.published_countries.add(germany)
+hp.published_countries.all()
+hp.published_countries.get(code=“DE”)
+hp.published_countries.filter(code=“DE”)
 ```
