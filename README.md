@@ -57,3 +57,11 @@ Following command is used to to open the python shell within the django project:
 ```
 python3 manage.py shell
 ```
+
+### 7 - Create super user for admin portal
+
+Following command is used to to create super user for the admin panel within the django project:
+
+```
+python3 manage.py createsuperuser
+```
