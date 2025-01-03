@@ -10,6 +10,8 @@ Learned about the following topics in this project:
 - Simple `forms` and `model forms` and when to use which, as explain below
 - Saving data with both simple forms and model forms
 - Replace `function-based` views with `class-based` views
+- Using the `TemplateView`, `ListView`, and `DetailView` in the class-based views
+- Using `FormView`, and `CreateView` in the class-based views to get/post form data
 
 ## Below explanation when to use Modelform or simple form in django application
 
