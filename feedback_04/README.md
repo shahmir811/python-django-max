@@ -12,6 +12,10 @@ Learned about the following topics in this project:
 - Replace `function-based` views with `class-based` views
 - Using the `TemplateView`, `ListView`, and `DetailView` in the class-based views
 - Using `FormView`, and `CreateView` in the class-based views to get/post form data
+- How to upload images using `FileField` and `ImageField`
+- How to use models for file storage
+- How to serve the uploaded files
+- Sessions, storing, and retrieving session data
 
 ## Below explanation when to use Modelform or simple form in django application
 

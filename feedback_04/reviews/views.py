@@ -1,6 +1,6 @@
-# from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect
 # from django.shortcuts import render
-# from django.views import View
+from django.views import View
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, FormView
@@ -42,6 +42,20 @@ class SingleReviewView(DetailView):
   template_name = 'reviews/single_review.html'
   model = Review # This will automatically fetch all the reviews from the database and pass it to the template
   # context_object_name = 'review' # Django by default use the model name in lowercase as the context_object_name
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    loaded_review = self.object
+    favorite_id = self.request.session.get('favorite_review')
+    context['is_favorite'] = favorite_id == str(loaded_review.id)
+    return context
+
+
+class AddFavoriteView(View):
+  def post(self, request):
+    review_id = request.POST['review_id']
+    request.session['favorite_review'] = review_id
+    return HttpResponseRedirect('/reviews/' + review_id)
 
 
 # ####################################

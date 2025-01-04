@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'profiles',
     'reviews',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -121,7 +122,17 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# This is the path where the uploaded files will be stored
+MEDIA_ROOT = BASE_DIR / 'uploads'
+
+# This is the URL that will be used to access the uploaded files in the browser
+MEDIA_URL = '/user-media/'
+
+# By default, the session cookie will expire after 2 weeks
+# SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  # 1 week
