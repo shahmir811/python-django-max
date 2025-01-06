@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blog.models import Author, Post, Tag
+from blog.models import Author, Comment, Post, Tag
 
 
 def get_day_suffix(day):
@@ -29,7 +29,12 @@ class PostAdmin(admin.ModelAdmin):
         return "-"
     last_modified.short_description = "Last modified"
 
+class CommentAdmin(admin.ModelAdmin):
+    list_filter = ("user_name", "user_email")
+    list_display = ("user_name", "user_email", "post", "created_at")
+
 
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(Tag)
